@@ -26,7 +26,9 @@ export function App() {
                 )}
                 <p>{demo.description}</p>
               </div>
-              <span className="demo-status">{demo.status === 'live' ? 'Open demo' : 'Planned'}</span>
+              <span className="demo-status">
+                {demo.status === 'live' ? 'Open demo' : 'Planned'}
+              </span>
             </li>
           ))}
         </ul>
