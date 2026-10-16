@@ -6,6 +6,28 @@ interface BaseDemo {
 
 type Demo = BaseDemo & ({ status: 'planned' } | { status: 'live'; href: string });
 
+/** Only local paths and direct HTTP(S) URLs can be rendered as demo links. */
+export function isSafeDemoHref(href: string): boolean {
+  if (!href || /[\s\\]/.test(href)) {
+    return false;
+  }
+
+  if (href.startsWith('/')) {
+    return !href.startsWith('//');
+  }
+
+  if (!/^https?:\/\//i.test(href)) {
+    return false;
+  }
+
+  try {
+    const url = new URL(href);
+    return (url.protocol === 'http:' || url.protocol === 'https:') && Boolean(url.hostname);
+  } catch {
+    return false;
+  }
+}
+
 // Registry only: these are future migration candidates, not running demos.
 export const demoCatalog: readonly Demo[] = [
   {

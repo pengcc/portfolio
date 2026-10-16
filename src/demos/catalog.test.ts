@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { demoCatalog } from './catalog';
+import { demoCatalog, isSafeDemoHref } from './catalog';
 
 describe('demo catalog', () => {
   it('keeps each route slug unique and valid', () => {
@@ -10,14 +10,44 @@ describe('demo catalog', () => {
     }
   });
 
-  it('does not advertise unimplemented demos as navigable', () => {
+  it('keeps planned entries unlinked and checks every live entry against the safe link policy', () => {
     for (const demo of demoCatalog) {
       expect(demo.title.trim()).not.toBe('');
       if (demo.status === 'planned') {
         expect('href' in demo).toBe(false);
       } else {
-        expect(demo.href).toMatch(/^\//);
+        expect(isSafeDemoHref(demo.href)).toBe(true);
       }
     }
+  });
+
+  it('accepts an independently hosted live demo', () => {
+    const externalLiveDemo = {
+      status: 'live' as const,
+      href: 'https://demos.example.com/json-csv',
+    };
+    expect(isSafeDemoHref(externalLiveDemo.href)).toBe(true);
+  });
+
+  it.each([
+    '/demos/json-csv',
+    '/',
+    'https://demos.example.com/json-csv',
+    'http://localhost:4173/',
+  ])('accepts safe demo href %s', (href) => {
+    expect(isSafeDemoHref(href)).toBe(true);
+  });
+
+  it.each([
+    'javascript:alert(1)',
+    'data:text/html,hello',
+    'mailto:test@example.com',
+    '//another-site.example.com/path',
+    '/\\another-site.example.com',
+    'https://',
+    'https://example.com/has space',
+    '',
+  ])('rejects unsafe or invalid demo href %s', (href) => {
+    expect(isSafeDemoHref(href)).toBe(false);
   });
 });

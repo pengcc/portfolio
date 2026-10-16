@@ -1,4 +1,4 @@
-import { demoCatalog } from './demos/catalog';
+import { demoCatalog, isSafeDemoHref } from './demos/catalog';
 
 export function App() {
   return (
@@ -12,25 +12,31 @@ export function App() {
         </p>
       </header>
       <main>
-        <h2>Planned demos</h2>
+        <h2>Demos</h2>
         <ul className="demo-list">
-          {demoCatalog.map((demo) => (
-            <li key={demo.slug} className="demo">
-              <div>
-                {demo.status === 'live' ? (
-                  <h3>
-                    <a href={demo.href}>{demo.title}</a>
-                  </h3>
-                ) : (
-                  <h3>{demo.title}</h3>
-                )}
-                <p>{demo.description}</p>
-              </div>
-              <span className="demo-status">
-                {demo.status === 'live' ? 'Open demo' : 'Planned'}
-              </span>
-            </li>
-          ))}
+          {demoCatalog.map((demo) => {
+            const href = demo.status === 'live' && isSafeDemoHref(demo.href) ? demo.href : null;
+            let statusLabel = 'Planned';
+            if (demo.status === 'live') {
+              statusLabel = href ? 'Open demo' : 'Unavailable';
+            }
+
+            return (
+              <li key={demo.slug} className="demo">
+                <div>
+                  {href ? (
+                    <h3>
+                      <a href={href}>{demo.title}</a>
+                    </h3>
+                  ) : (
+                    <h3>{demo.title}</h3>
+                  )}
+                  <p>{demo.description}</p>
+                </div>
+                <span className="demo-status">{statusLabel}</span>
+              </li>
+            );
+          })}
         </ul>
       </main>
       <footer>Independent demos will be added and verified in separate pull requests.</footer>
