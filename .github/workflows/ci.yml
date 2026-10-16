@@ -22,10 +22,14 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '24'
-      # The initial bootstrap does not yet commit a resolved dependency lockfile.
-      # Pin one in a follow-up once install has been verified, then switch to --frozen-lockfile.
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
+      # Bootstrap only: capture the exact runner-resolved lockfile, then remove this step.
+      - name: Capture bootstrap lockfile
+        run: |
+          echo '===PORTFOLIO_LOCKFILE_START==='
+          cat pnpm-lock.yaml
+          echo '===PORTFOLIO_LOCKFILE_END==='
       - name: Format and lint
         run: pnpm lint
       - name: Typecheck
