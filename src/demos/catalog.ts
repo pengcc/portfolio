@@ -48,6 +48,7 @@ export const demoCatalog: readonly Demo[] = [
     slug: 'mobile-checkout',
     title: 'Mobile Checkout',
     description: 'A focused, mobile-first checkout interaction example.',
-    status: 'planned',
+    status: 'live',
+    href: '/demos/mobile-checkout/',
   },
 ];

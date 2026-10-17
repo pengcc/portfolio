@@ -1,0 +1,382 @@
+:root {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  color: #26372e;
+  background: #f4f2eb;
+  font-synthesis: none;
+  line-height: 1.5;
+}
+* {
+  box-sizing: border-box;
+}
+button,
+input {
+  font: inherit;
+}
+button {
+  min-height: 46px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 10px 18px;
+  background: #304e3d;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+}
+button:hover {
+  filter: brightness(0.93);
+}
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+body {
+  margin: 0;
+}
+main {
+  max-width: 1080px;
+  margin: auto;
+  padding: 28px 32px;
+}
+a {
+  color: inherit;
+  text-underline-offset: 4px;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+header a {
+  font-size: 14px;
+}
+.badge,
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.13em;
+  font-weight: 700;
+}
+.badge {
+  border: 1px solid #9ca79c;
+  border-radius: 20px;
+  padding: 7px 12px;
+}
+.intro {
+  margin: 56px 0 36px;
+}
+h1 {
+  font-family: Georgia, serif;
+  font-size: clamp(42px, 6vw, 68px);
+  line-height: 1.04;
+  letter-spacing: -0.04em;
+  font-weight: 400;
+  margin: 16px 0;
+}
+.intro > p:last-child {
+  color: #5d685e;
+}
+form {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+.steps {
+  display: grid;
+  gap: 24px;
+  min-width: 0;
+}
+.card {
+  background: #fffef9;
+  border: 1px solid #d9ddd2;
+  border-radius: 18px;
+  padding: 26px;
+  min-width: 0;
+}
+h2 {
+  font-size: 21px;
+  font-weight: 600;
+  margin: 0 0 20px;
+  letter-spacing: -0.03em;
+}
+.section-title {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.section-title h2 {
+  margin: 0;
+}
+.section-title > span {
+  color: #647264;
+  font-size: 12px;
+}
+.section-title small {
+  margin-left: auto;
+  color: #647264;
+}
+.product {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px 0;
+  border-top: 1px solid #e1e3da;
+}
+.product-art {
+  flex-shrink: 0;
+  width: 68px;
+  height: 84px;
+  background: #e4d6bc;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  font-family: Georgia, serif;
+  color: #75654e;
+  font-size: 26px;
+}
+.art-1 {
+  background: #d7dfcc;
+  color: #5d6c4f;
+}
+.product-info {
+  flex: 1;
+  min-width: 0;
+}
+h3 {
+  font-size: 15px;
+  margin: 0;
+}
+.product-info p {
+  font-size: 12px;
+  color: #626e61;
+  margin: 4px 0;
+}
+.product-info > strong {
+  font-size: 13px;
+  font-weight: 400;
+}
+.line-total {
+  font-size: 14px;
+  white-space: nowrap;
+}
+.quantity {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 12px;
+}
+.quantity button {
+  width: 44px;
+  padding: 0;
+  min-height: 44px;
+  background: #f2f3eb;
+  color: #26372e;
+  border: 1px solid #d9ddd2;
+}
+.quantity output {
+  min-width: 24px;
+  text-align: center;
+  font-size: 14px;
+}
+:focus-visible {
+  outline: 3px solid #a26526;
+  outline-offset: 4px;
+}
+fieldset {
+  margin: 0 0 24px;
+  padding: 0;
+  border: 0;
+}
+legend {
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+.fulfilment {
+  display: flex;
+  gap: 10px;
+}
+.fulfilment label {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 12px;
+  border: 1px solid #cdd3c7;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.fulfilment .selected {
+  border-color: #304e3d;
+  background: #edf1e6;
+}
+.fulfilment input {
+  accent-color: #304e3d;
+  min-width: 20px;
+  height: 20px;
+  margin: 0;
+}
+.fulfilment strong,
+.fulfilment small {
+  display: block;
+}
+.fulfilment strong {
+  font-size: 14px;
+}
+.fulfilment small {
+  font-size: 11px;
+  color: #586554;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 13px;
+  margin-bottom: 18px;
+}
+.field input {
+  width: 100%;
+  min-height: 48px;
+  border: 1px solid #bcc5b7;
+  background: #fff;
+  border-radius: 7px;
+  padding: 10px 12px;
+  color: #26372e;
+}
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.hint {
+  font-size: 12px;
+  color: #616b5e;
+  line-height: 1.6;
+}
+.pickup-note {
+  padding: 16px;
+  border-radius: 8px;
+  background: #edf1e6;
+  font-size: 14px;
+}
+.error {
+  color: #a13322;
+  font-size: 12px;
+}
+input[aria-invalid="true"] {
+  border-color: #a13322;
+}
+.error-summary {
+  background: #fff0e8;
+  color: #8c2e20;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+.error-summary ul {
+  padding-left: 20px;
+  margin-bottom: 0;
+}
+.error-summary a {
+  display: inline-block;
+  padding: 8px 0;
+}
+.order {
+  position: sticky;
+  top: 24px;
+}
+.order .eyebrow {
+  color: #647264;
+  margin: 0 0 10px;
+}
+.order .field {
+  margin-top: 26px;
+  margin-bottom: 8px;
+}
+.secondary {
+  background: #f1f3ea;
+  color: #304e3d;
+  border-color: #bac5b3;
+  width: 100%;
+}
+.feedback {
+  font-size: 13px;
+  min-height: 20px;
+}
+dl {
+  margin: 22px 0;
+}
+dl > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 14px 0;
+  font-size: 14px;
+}
+dd {
+  margin: 0;
+}
+dl .total {
+  border-top: 1px solid #d9ddd2;
+  padding-top: 20px;
+  font-size: 23px;
+  font-weight: 600;
+}
+.total small {
+  font-size: 11px;
+  font-weight: 400;
+}
+.demo-notice {
+  font-size: 13px;
+  font-weight: 600;
+}
+.place-order {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+.success {
+  max-width: 600px;
+  margin-top: 30px;
+}
+footer {
+  padding: 40px 0 12px;
+  font-size: 12px;
+  color: #616b5e;
+}
+@media (max-width: 720px) {
+  main {
+    padding: 22px 16px;
+  }
+  .intro {
+    margin: 38px 0 28px;
+  }
+  form {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+  .card {
+    padding: 20px;
+  }
+  .order {
+    position: static;
+  }
+}
+@media (max-width: 360px) {
+  .product {
+    gap: 10px;
+  }
+  .product-art {
+    width: 44px;
+    height: 60px;
+  }
+  .fulfilment label {
+    padding: 12px 8px;
+    gap: 6px;
+  }
+  .badge {
+    font-size: 9px;
+  }
+}
