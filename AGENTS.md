@@ -7,6 +7,7 @@ This is a public, lightweight portfolio for practical web-development demos. The
 - Read this file and the current `README.md` before changing the project.
 - For ChatGPT Project work, use `.codex/chatgpt/project-instructions.md` as the project-specific bootstrap.
 - Follow `docs/collaboration.md` for proportionate task alignment, delivery, and review.
+- For substantive design or architecture trade-offs, consult `docs/design-judgment-principles.md` as a judgment aid; do not load it for routine changes or treat it as extra approval or workflow authority.
 - Consult `.codex/project-memory/decisions.md` only for decisions relevant to the task.
 - Verify current source and PR base/head before making repository-specific claims.
 
