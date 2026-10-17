@@ -13,11 +13,13 @@ This is a public, lightweight portfolio for practical web-development demos. The
 ## Boundaries
 
 - Prefer the smallest testable change; do not add complex agent frameworks, monorepo scaffolding, or unused infrastructure.
-- This repository is **public**. Never commit credentials, customer data, unpublished project details, private-repository contents, or personal information not approved for publication.
+- This repository is **public**. Never commit credentials, customer data, confidential or unpublished project details, internal deployment settings, or personal information not approved for publication. Reused material must be safe and authorized for public release, even when sourced from a private repository.
 - The initial site is a static React/TypeScript shell, **not** an approved final visual design. Avoid default-blue boilerplate or unrequested design expansion.
 - Demos are separate work items. Planned entries are not live or verified implementations.
 - Do not add servers, databases, paid services, telemetry, or VPS dependencies without an explicit decision.
 - Never mutate global tooling or deployment environments for routine project work.
+- General-purpose Principles, Contracts, Skills, scripts, and hooks from Badminton or other projects may be reused selectively when publicly safe and useful. Inspect each candidate, adapt its paths, dependencies, assumptions, and side effects for Portfolio, and maintain the resulting files here; do not bulk-import a donor tooling stack.
+- Review what imported scripts and hooks execute and access before enabling them; never introduce secrets, private data, or unapproved external effects.
 
 ## Change and publication discipline
 

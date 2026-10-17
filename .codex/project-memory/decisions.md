@@ -8,11 +8,11 @@ Record accepted, persistent project decisions only. Revisit them when the owner 
 - **Reason:** Keep maintenance and operating costs proportionate while making examples easy to inspect and share.
 - **Boundary:** No automatic purchase, VPS dependency, telemetry, or production deployment.
 
-## 2026-10-16: Adopt collaboration principles, not donor tooling
+## 2026-10-17: Selective cross-project tooling reuse (revises 2026-10-16 boundary)
 
-- **Decision:** Keep a concise entry point, explicit task scope, evidence-based PR review, and separate merge/deploy authorization.
-- **Reason:** These are useful across projects, unlike Badminton-specific infrastructure and task lifecycle mechanics.
-- **Boundary:** No copying the donor project's private content, scripts, hooks, or complete `.codex` system. This repository's rules are owned and maintained here.
+- **Decision:** Keep lightweight collaboration and independent review, and allow selective reuse of publicly safe, general-purpose Principles, Contracts, Skills, scripts, and hooks from Badminton or other projects.
+- **Reason:** Reuse useful working patterns without adopting unrelated project mechanics or rebuilding them needlessly.
+- **Boundary:** Inspect and adapt each selected element to Portfolio's workflows, paths, dependencies, and side effects; maintain it here. Do not publish secrets, private or customer data, internal deployment settings, unpublished details, or unapproved personal information. No automatic full-tooling import or donor-repository runtime dependency; merge and deployment still need separate authorization.
 
 ## 2026-10-16: Reversible bootstrap shell
 
