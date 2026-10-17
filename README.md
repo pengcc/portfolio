@@ -52,3 +52,60 @@ Do not publish customer data, private project artifacts, API keys, analytics tok
 ## Deployment (not configured yet)
 
 A static host such as Cloudflare Pages is a potential fit: build command `pnpm build`, output directory `dist`. This is **documentation only**, not a configured deployment. Preview, production publication, custom domains, and any external costs require separately approved steps.
+
+## Add an independent demo
+
+Each demo has a real static page at `/demos/<slug>/`. Add these two entrypoints;
+Vite discovers `demos/*/index.html` automatically at build time, so no Vite config
+or other demo files need editing:
+
+```text
+demos/example/index.html
+src/demos/example/main.tsx
+```
+
+For example, `demos/example/index.html`:
+
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Example demo</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/demos/example/main.tsx"></script>
+  </body>
+</html>
+```
+
+And `src/demos/example/main.tsx`:
+
+```tsx
+import { createRoot } from 'react-dom/client';
+
+const root = document.getElementById('root');
+if (!root) throw new Error('Missing #root element');
+createRoot(root).render(<h1>Example demo</h1>);
+```
+
+Keep the demo's implementation, styles, fixtures, and tests under its own
+`src/demos/<slug>/` directory. Use lowercase hyphenated slugs. Restart the build
+when adding HTML entries. The example above is documentation, not a published demo.
+
+Run the four quality checks above. `pnpm build` retains `dist/index.html` and emits
+`dist/demos/example/index.html` plus its bundled assets. With `pnpm dev` or
+`pnpm preview`, visit `/demos/example/` directly. A static host serving `dist/`
+from the domain root must support ordinary directory index files; no SPA fallback
+or provider-specific rewrite is required for direct visits and refreshes.
+
+`tests/static-entrypoints.test.ts` builds two temporary demo entries and checks
+that the homepage, nested HTML pages, and referenced JavaScript assets exist.
+This verifies build output, not browser behavior or a deployed host.
+
+Keep `src/demos/catalog.ts` entries `planned` until the corresponding page works
+and passes review. An implementation PR may update only its own record to `live`
+with `href: '/demos/<slug>/'`; rebase if another demo PR lands first. Do not add
+shared feature logic or dependencies without a concrete second consumer.
