@@ -34,7 +34,8 @@ export const demoCatalog: readonly Demo[] = [
     slug: 'json-csv',
     title: 'JSON → CSV Converter',
     description: 'Convert structured JSON into reusable CSV files.',
-    status: 'planned',
+    status: 'live',
+    href: '/demos/json-csv/',
   },
   {
     slug: 'shopify-csv',
