@@ -26,3 +26,7 @@ This is a public, lightweight portfolio for practical web-development demos. The
 - An independent review examines the **exact current** PR base/head and meaningful behavior, risks, and regressions. Review alone does not authorize modifications or merge.
 - PR creation does **not** authorize merge, release, Cloudflare Pages production publication, domain changes, or paid infrastructure. Ask separately for those effects.
 - Keep project decisions brief and current; no Task State framework or donor-repository runtime dependency.
+
+## Optional Codex review skill pilot
+
+For an explicitly requested independent PR implementation review or same-PR re-review, Codex may use `.agents/skills/portfolio-implementation-review/SKILL.md` when it is discoverable in that session. `docs/collaboration.md` remains the single collaboration owner; other tasks do not require a Skill. The presence of a Skill file does not prove that an actual Codex session discovered or invoked it.
