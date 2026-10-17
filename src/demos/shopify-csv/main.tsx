@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import sample from './fixtures/products-v1.csv?raw';
+import { readCsvFile } from './upload';
 import { type Result, validateCsv } from './validator';
 import './styles.css';
 
@@ -10,7 +11,9 @@ function App() {
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
   const request = useRef(0);
+  const fileInput = useRef<HTMLInputElement>(null);
   function example() {
+    if (fileInput.current) fileInput.current.value = '';
     request.current++;
     setBusy(false);
     setError('');
@@ -28,8 +31,11 @@ function App() {
     }
     setBusy(true);
     try {
-      const text = new TextDecoder('utf-8', { fatal: true }).decode(await file.arrayBuffer());
-      if (request.current === id) setResult(validateCsv(text));
+      const outcome = await readCsvFile(file);
+      if (request.current === id) {
+        if (outcome.result) setResult(outcome.result);
+        else setError(outcome.error);
+      }
     } catch {
       if (request.current === id)
         setError('Could not read this file as UTF-8. Export a UTF-8 CSV and try again.');
@@ -50,8 +56,9 @@ function App() {
       </p>
       <section aria-labelledby="input-heading">
         <h2 id="input-heading">Choose a file</h2>
-        <label htmlFor="csv-file">Product CSV (UTF-8)</label>
+        <label htmlFor="csv-file">Product CSV (UTF-8, maximum 15 MB / 15,000,000 bytes)</label>
         <input
+          ref={fileInput}
           id="csv-file"
           type="file"
           accept=".csv,text/csv"
