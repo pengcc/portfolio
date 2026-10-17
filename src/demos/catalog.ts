@@ -41,7 +41,8 @@ export const demoCatalog: readonly Demo[] = [
     slug: 'shopify-csv',
     title: 'Shopify CSV Validator',
     description: 'Inspect common import-file issues before uploading.',
-    status: 'planned',
+    status: 'live',
+    href: '/demos/shopify-csv/',
   },
   {
     slug: 'mobile-checkout',

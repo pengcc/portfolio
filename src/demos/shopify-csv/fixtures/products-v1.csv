@@ -1,0 +1,6 @@
+Title,URL handle,SKU,Price,Option1 name,Option1 value,Description
+"Studio mug, small",studio-mug,MUG-01,12.50,Default Title,Default Title,"Synthetic sample v1: a ""quoted"" description.
+Second line of description."
+Everyday shirt,everyday-shirt,SHIRT-S,24.00,Size,Small,Synthetic sample v1
+,everyday-shirt,SHIRT-M,24.00,Size,Medium,
+Notebook,,,,,,Synthetic simple product with optional fields omitted
