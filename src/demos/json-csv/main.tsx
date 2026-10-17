@@ -115,7 +115,8 @@ function App() {
           </div>
           <p role="status">{message}</p>
           <p className="muted">
-            Columns follow first-seen key order. Missing and null values become empty fields.
+            Columns follow first-seen key order in the JSON source, including numeric keys. Missing
+            and null values become empty fields. Numeric values retain their original JSON text.
             Exports use UTF-8, commas, and CRLF record endings.
           </p>
           <p className="muted">

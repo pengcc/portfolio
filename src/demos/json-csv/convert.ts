@@ -28,26 +28,46 @@ export function convertJson(source: string) {
   if (!Array.isArray(data) || data.length === 0) {
     throw new Error('Use a nonempty top-level array of flat objects.');
   }
+  // JSON.parse above validates the complete grammar, but its object enumeration
+  // reorders integer keys and its numbers can round/overflow. Walk validated
+  // source tokens instead; decode strings only and retain numeric lexemes.
+  const tokens =
+    source.match(
+      /"(?:\\.|[^"\\])*"|-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?|true|false|null|[{}[\],:]/gu,
+    ) ?? [];
   const columns = new Set<string>();
-  for (const [index, row] of data.entries()) {
-    if (row === null || typeof row !== 'object' || Array.isArray(row)) {
-      throw new Error(`Record ${index + 1} must be an object.`);
+  const rows: Map<string, string>[] = [];
+  let position = 1; // Skip the top-level opening bracket.
+  while (tokens[position] !== ']') {
+    if (tokens[position++] !== '{') {
+      throw new Error(`Record ${rows.length + 1} must be an object.`);
     }
-    for (const [key, value] of Object.entries(row)) {
-      if (value !== null && typeof value === 'object') {
+    const row = new Map<string, string>();
+    while (tokens[position] !== '}') {
+      const key: string = JSON.parse(tokens[position++]);
+      position += 1; // Colon; grammar was already validated.
+      const value = tokens[position++];
+      if (value === '{' || value === '[') {
         throw new Error(
-          `Record ${index + 1}, column "${key}": nested arrays and objects are unsupported.`,
+          `Record ${rows.length + 1}, column "${key}": nested arrays and objects are unsupported.`,
         );
       }
       columns.add(key);
+      // Only a valid JSON number can begin with a minus or digit. All other
+      // primitive tokens use the existing string/formula and CSV escaping policy.
+      row.set(key, /^[-\d]/u.test(value) ? value : csvCell(JSON.parse(value)));
+      if (tokens[position] === ',') position += 1;
     }
+    rows.push(row);
+    position += 1; // Closing object brace.
+    if (tokens[position] === ',') position += 1;
   }
   const keys = [...columns];
   if (keys.length === 0)
     throw new Error('Include at least one column; empty objects have no CSV fields.');
   const lines = [keys.map(csvCell).join(',')];
-  for (const row of data) {
-    lines.push(keys.map((key) => csvCell(Object.hasOwn(row, key) ? row[key] : null)).join(','));
+  for (const row of rows) {
+    lines.push(keys.map((key) => row.get(key) ?? '').join(','));
   }
   return {
     csv: `${lines.join('\r\n')}\r\n`,
