@@ -44,7 +44,10 @@ pnpm build
 
 - `AGENTS.md` is the entry point for coding agents.
 - `.codex/chatgpt/project-instructions.md` is the source for ChatGPT Project setup; it does not auto-sync into ChatGPT settings.
-- `docs/collaboration.md` defines proportional task alignment, independent PR review, and publication boundaries.
+- `docs/collaboration.md` is Portfolio's single Collaboration owner, integrating useful donor alignment and collaboration guidance.
+- `.agents/skills/execute-plan/SKILL.md` is the callable Execution owner for direct bounded changes.
+- `.codex/project-collaboration/contracts/implementation-review.md` owns independent Review semantics, invoked by `.agents/skills/implementation-review/SKILL.md`.
+- Generic design/tooling principles, the Handoff contract and coding safety/quality rules are conditional supporting material. Skill discoverability needs an actual fresh Codex actor-session probe; file presence does not prove invocation.
 - `.codex/project-memory/decisions.md` records durable accepted decisions only.
 
 Do not publish customer data, private project artifacts, API keys, analytics tokens, or unapproved personal information.
