@@ -15,7 +15,7 @@ Read the current Portfolio `AGENTS.md`, `README.md`, applicable accepted decisio
 
 
 
-Evaluate the complete delivery directly across the canonical contract's six dimensions: Baseline
+Evaluate the complete delivery directly across the canonical contract's six dimensions: outcome
 conformance, execution-authority conformance, real workflow behavior, risk and authority,
 implementation quality, and artifact/test consistency. A concrete code defect found here is an
 Implementation Review finding. Keep code quality and governing-contract conformance independent.

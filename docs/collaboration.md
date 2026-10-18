@@ -117,9 +117,9 @@ because another task or actor is active.
 Preserve real dependencies:
 
 - a downstream stage waits for the upstream result it actually consumes;
-- stop or pause a running pass before governing-contract mutation; for plan corrections, consume
-  the Implementation Planning contract's Post-approval plan corrections rule, requiring
-  reauthorization for material change and verified canonical readback before resumption;
+- pause affected execution before changing a governing brief or plan; for material changes
+  to an approved plan, apply this contract's plan re-review and renewed-approval rules above,
+  then verify the corrected canonical plan before resuming;
 - one mutable canonical target has one current writer or another explicit conflict-control
   arrangement; and
 - freshness is rechecked when a shared target may have changed.

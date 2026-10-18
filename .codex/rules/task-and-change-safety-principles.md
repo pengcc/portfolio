@@ -83,10 +83,10 @@ demonstrated need. Plausibility may justify a cheap boundary; it does not justif
 
 When a proposed solution adds meaningful conditional complexity, follows repeated failed fixes,
 or changes a high-risk workflow boundary, reassess the ownership model and smallest sufficient
-alternative inside the active workflow. Route unresolved design decisions to their planning owner;
-keep task-wide end-user meaning with Task Alignment and applicable accepted Task Decisions, and use
-requirement clarification only when material user-owned meaning is unresolved. Keep clear routine
-tasks direct.
+alternative inside the active workflow. Route material planning changes through Portfolio
+Collaboration; preserve task-wide meaning in the accepted brief and relevant durable decisions.
+Use requirement clarification only when material user-owned meaning is unresolved. Keep clear
+routine tasks direct.
 
 ## Authority Boundary
 

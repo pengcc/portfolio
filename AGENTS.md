@@ -30,7 +30,7 @@ This is a public, lightweight portfolio for practical web-development demos. The
 
 - **Collaboration:** `docs/collaboration.md`. **Execution:** `.agents/skills/execute-plan/SKILL.md`. **Review:** `.codex/project-collaboration/contracts/implementation-review.md` via `.agents/skills/implementation-review/SKILL.md`. Supporting principles and Handoff are not competing workflow owners.
 - Repository-local Codex Skill entries live under `.agents/skills/<name>/SKILL.md`, with valid YAML frontmatter. Confirm runtime discovery/invocation in a fresh eligible Codex session; committed Skill files alone do not prove it.
-- Only the direct C-type execution input is installed; do not invoke donor Task State, memory gates, approval-plan selector, publishing helpers or the unmerged `portfolio-implementation-review` pilot as another Review owner. PRs #11, #13 and #15 remain untouched and will need normal overlap reconciliation before separately authorized merge.
+- Only the direct C-type execution input is installed; donor Task State, memory gates, approved-plan selectors and publication helpers are not part of the adopted workflow. Use the single Review route above; do not introduce a competing Review owner.
 
 ## Change and publication discipline
 

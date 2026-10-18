@@ -26,8 +26,8 @@ Stop when completion requires a material change in scope, authority, architectur
 ownership, validation, acceptance, destructive/data/security boundary, risk, rollback, or another
 user-owned decision. Approved contracts return to their planning or authority owner; direct bounded
 requests return the concrete discovered boundary so the user can broaden direct authority or choose
-planning. Apply Collaboration for brief amendment and the planning owner for plan
-correction; do not patch an upstream governing contract during execution.
+planning. Use Collaboration for brief or plan correction; do not patch an upstream
+governing contract during execution.
 
 Apply the current material-uncertainty boundary when unresolved ambiguity materially blocks
 execution. Clarification does not amend an approved contract or brief. A bounded clarification
@@ -40,11 +40,12 @@ for bounded correction of the same governing contract, and keep changed-head rev
 the review owner.
 
 Same-delivery remediation remains bounded to a required end state that preserves the governing Task
-brief, accepted accepted decisions, and material approved solution boundaries. If correction requires
+brief, accepted decisions, and material approved solution boundaries. If correction requires
 changing task-wide product meaning, such as the actor task, normal path, accepted requirement, or
 page/flow responsibility, stop the affected remediation and return to Collaboration and its
 brief-amendment boundary. If product meaning remains valid but correction requires a material
-solution, architecture, dependency, or ownership change, return to the planning owner.
+solution, architecture, dependency, or ownership change, return to Collaboration's optional
+planning stage.
 Ordinary implementation defects that preserve those upstream boundaries remain local under current
 authority. Do not classify remediation by finding count, severity alone, or a new lifecycle state.
 
