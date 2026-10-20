@@ -15,7 +15,7 @@ For larger, cross-stage, or consequential work, use the stages needed:
 - **Independent Implementation Review / re-review:** inspect the exact current PR base/head and accepted authority; report findings or a clean verdict without editing or merging.
 - **Closeout:** report the achieved outcome, remaining limits, review state, and any separately authorized next action.
 
-When work passes to another actor, label its current stage and expected output. A stage is complete only when its actual artifact, evidence, and necessary handoff exist; saying “done” is insufficient. Reuse accepted work instead of restarting earlier stages. A short in-chat handoff is enough when it contains the information the recipient needs; no status registry, mandatory templates, scripts, skills, or extra roles are required.
+When work passes to another actor, label its current stage and expected output. A stage is complete only when its actual artifact, evidence, and necessary handoff exist; saying “done” is insufficient. Reuse accepted work instead of restarting earlier stages. A short in-chat handoff is enough when the recipient can access it and it contains the information they need; no status registry, mandatory templates, scripts, skills, or extra roles are required.
 
 ## Planning, review, and execution authority
 
@@ -47,7 +47,13 @@ Before accessing data outside the project root or requesting new machine permiss
 
 Keep one independent PR per bounded task on a narrowly scoped feature branch. List changed behavior, non-goals, meaningful trade-offs, and actual validation evidence. Tests should protect user-visible behavior or credible regressions. Run applicable repository checks from [AGENTS.md](../AGENTS.md); state commands and outcomes, including checks not run and why. Green CI proves only its executed checks, not browser or manual UX.
 
-The [Implementation Review contract](../.codex/project-collaboration/contracts/implementation-review.md) owns independent review, actionable findings, clean/provisional verdicts and same-PR re-review. The [Review Skill](../.agents/skills/implementation-review/SKILL.md) is its callable adapter. Review alone does not authorize modification, merge or publication.
+The [Implementation Review contract](../.codex/project-collaboration/contracts/implementation-review.md) owns independent review, actionable findings, clean/provisional verdicts and same-PR re-review. The [Review Skill](../.agents/skills/implementation-review/SKILL.md) is its callable adapter. Review alone does not authorize modification, merge or publication. When actionable findings need
+to pass between Codex actors, use the Review contract’s target-owned durable PR result and directly
+usable next-agent instructions; do not rely on the user retransmitting chat findings. Explicit
+authority to publish that result is distinct from remediation, merge and deployment authority.
+Receiving implementers and re-reviewers read the linked PR result and verify the current target;
+findings supply evidence, not authority to fix. Clean reviews require no remediation handoff or
+routine PR publication.
 
 Independent branches may proceed in parallel while preserving true dependencies. Coordinate edits to shared canonical files such as the demo catalog rather than concurrently overwriting them; independently owned feature files need no global serialization. Before any authorized merge, refresh the base/head and check whether base changes require integration fixes, fresh CI, or re-review.
 
