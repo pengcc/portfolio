@@ -43,7 +43,7 @@ export function App() {
         </ul>
       </main>
       <footer>
-        <p>Independent web demos. Practical tools, open source.</p>
+        <p>Built as independent, inspectable web demos.</p>
         <a href="https://github.com/pengcc/portfolio">Project on GitHub</a>
       </footer>
     </div>

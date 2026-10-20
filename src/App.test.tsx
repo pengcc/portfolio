@@ -7,14 +7,15 @@ describe('homepage', () => {
   it('renders only live catalog entries with demo and source actions', () => {
     const html = renderToStaticMarkup(<App />);
     const live = demoCatalog.filter((demo) => demo.status === 'live');
-    expect(live).toHaveLength(2);
-    expect(html.match(/<li /g)).toHaveLength(live.length);
+    expect(html.match(/<li /g) ?? []).toHaveLength(live.length);
     for (const demo of live) {
-      expect(html).toContain(demo.title);
+      expect(html).toContain(renderToStaticMarkup(<h3>{demo.title}</h3>));
       expect(html).toContain(`href="${demo.href}"`);
       expect(html).toContain(`href="${demo.sourceHref}"`);
     }
-    expect(html).not.toContain('Mobile Checkout');
+    for (const demo of demoCatalog.filter((demo) => demo.status === 'planned')) {
+      expect(html).not.toContain(renderToStaticMarkup(<h3>{demo.title}</h3>));
+    }
     expect(html).not.toContain('bootstrap');
   });
 
