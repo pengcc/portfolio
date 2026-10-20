@@ -4,13 +4,12 @@ Public, static-first home for small, practical web-development demos.
 
 ## Status
 
-This is the **project bootstrap**, not a finished website or a collection of running demos. The initial catalog identifies three candidates for later, separately reviewed migrations:
+Two live browser-based tools are available:
 
-- JSON → CSV Converter
-- Shopify CSV Validator
-- Mobile Checkout
+- [JSON → CSV Converter](https://portfolio-rjm.pages.dev/demos/json-csv/) — flat JSON conversion with preview, copy and download.
+- [Shopify CSV Validator](https://portfolio-rjm.pages.dev/demos/shopify-csv/) — focused product CSV checks before import, not complete Shopify compatibility validation.
 
-These are currently marked **Planned** and intentionally do not link to placeholder routes.
+Mobile Checkout remains planned and has no live route.
 
 ## Tech stack
 
@@ -18,7 +17,7 @@ These are currently marked **Planned** and intentionally do not link to placehol
 - pnpm 11.26.0 and Node.js 24.
 - Biome for formatting and lint checks, Vitest for tests, GitHub Actions for PR checks.
 
-The Vite shell is a reversible bootstrap choice. Final homepage styling, any Astro migration, and each demo's design/implementation are separate decisions.
+The homepage presents live demos from `src/demos/catalog.ts`; planned entries stay hidden. Each demo is an independent static page.
 
 ## Run locally
 
@@ -44,14 +43,19 @@ pnpm build
 
 - `AGENTS.md` is the entry point for coding agents.
 - `.codex/chatgpt/project-instructions.md` is the source for ChatGPT Project setup; it does not auto-sync into ChatGPT settings.
-- `docs/collaboration.md` defines proportional task alignment, independent PR review, and publication boundaries.
+- `docs/collaboration.md` is Portfolio's single Collaboration owner, integrating useful donor alignment and collaboration guidance.
+- `.agents/skills/execute-plan/SKILL.md` is the callable Execution owner for direct bounded changes.
+- `.codex/project-collaboration/contracts/implementation-review.md` owns independent Review semantics, invoked by `.agents/skills/implementation-review/SKILL.md`.
+- Generic design/tooling principles, the Handoff contract and coding safety/quality rules are conditional supporting material. Skill discoverability needs an actual fresh Codex actor-session probe; file presence does not prove invocation.
 - `.codex/project-memory/decisions.md` records durable accepted decisions only.
 
 Do not publish customer data, private project artifacts, API keys, analytics tokens, or unapproved personal information.
 
-## Deployment (not configured yet)
+## Deployment
 
-A static host such as Cloudflare Pages is a potential fit: build command `pnpm build`, output directory `dist`. This is **documentation only**, not a configured deployment. Preview, production publication, custom domains, and any external costs require separately approved steps.
+The existing Cloudflare Pages site is [portfolio-rjm.pages.dev](https://portfolio-rjm.pages.dev/).
+The static build uses `pnpm build` with output directory `dist`.
+Production publication through `main`, hosting configuration and domain changes require separate authorization; creating a PR does not authorize publication.
 
 ## Add an independent demo
 

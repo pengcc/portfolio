@@ -4,7 +4,8 @@ interface BaseDemo {
   description: string;
 }
 
-type Demo = BaseDemo & ({ status: 'planned' } | { status: 'live'; href: string });
+type Demo = BaseDemo &
+  ({ status: 'planned' } | { status: 'live'; href: string; sourceHref: string });
 
 /** Only local paths and direct HTTP(S) URLs can be rendered as demo links. */
 export function isSafeDemoHref(href: string): boolean {
@@ -28,21 +29,25 @@ export function isSafeDemoHref(href: string): boolean {
   }
 }
 
-// Registry only: these are future migration candidates, not running demos.
+// Display information for live demos and future candidates.
 export const demoCatalog: readonly Demo[] = [
   {
     slug: 'json-csv',
     title: 'JSON → CSV Converter',
-    description: 'Convert structured JSON into reusable CSV files.',
+    description:
+      'Convert flat JSON into CSV, preview the results, then copy or download your file.',
     status: 'live',
     href: '/demos/json-csv/',
+    sourceHref: 'https://github.com/pengcc/portfolio/tree/main/src/demos/json-csv',
   },
   {
     slug: 'shopify-csv',
     title: 'Shopify CSV Validator',
-    description: 'Inspect common import-file issues before uploading.',
+    description:
+      'Check product CSV files for focused issues before import. This is not a complete Shopify compatibility check.',
     status: 'live',
     href: '/demos/shopify-csv/',
+    sourceHref: 'https://github.com/pengcc/portfolio/tree/main/src/demos/shopify-csv',
   },
   {
     slug: 'mobile-checkout',
@@ -50,5 +55,6 @@ export const demoCatalog: readonly Demo[] = [
     description: 'A focused, mobile-first checkout interaction example.',
     status: 'live',
     href: '/demos/mobile-checkout/',
+    sourceHref: 'https://github.com/pengcc/portfolio/tree/main/src/demos/mobile-checkout',
   },
 ];
