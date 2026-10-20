@@ -4,42 +4,48 @@ export function App() {
   return (
     <div className="page">
       <header className="intro">
-        <p className="eyebrow">Portfolio · Web development</p>
-        <h1>Practical web demos</h1>
+        <p className="eyebrow">INDEPENDENT WEB DEMOS</p>
+        <h1>Small tools for real-world tasks.</h1>
         <p className="summary">
-          A lightweight home for small, useful tools and implementation examples. This is a
-          bootstrap shell, not the finished site design.
+          Explore practical browser-based tools for converting data and checking CSV files. Try the
+          demos or inspect how they're built.
         </p>
       </header>
-      <main>
-        <h2>Demos</h2>
+      <main id="demos" aria-labelledby="demos-heading">
+        <h2 id="demos-heading">Live demos</h2>
         <ul className="demo-list">
-          {demoCatalog.map((demo) => {
-            const href = demo.status === 'live' && isSafeDemoHref(demo.href) ? demo.href : null;
-            let statusLabel = 'Planned';
-            if (demo.status === 'live') {
-              statusLabel = href ? 'Open demo' : 'Unavailable';
-            }
-
-            return (
+          {demoCatalog
+            .filter((demo) => demo.status === 'live')
+            .map((demo) => (
               <li key={demo.slug} className="demo">
-                <div>
-                  {href ? (
-                    <h3>
-                      <a href={href}>{demo.title}</a>
-                    </h3>
+                <h3>{demo.title}</h3>
+                <p>{demo.description}</p>
+                <div className="demo-actions">
+                  {isSafeDemoHref(demo.href) ? (
+                    <a
+                      className="primary-link"
+                      href={demo.href}
+                      aria-label={`Open demo: ${demo.title}`}
+                    >
+                      Open demo <span aria-hidden="true">↗</span>
+                    </a>
                   ) : (
-                    <h3>{demo.title}</h3>
+                    <span>Unavailable</span>
                   )}
-                  <p>{demo.description}</p>
+                  {isSafeDemoHref(demo.sourceHref) && (
+                    <a href={demo.sourceHref} aria-label={`View source: ${demo.title}`}>
+                      View source
+                    </a>
+                  )}
                 </div>
-                <span className="demo-status">{statusLabel}</span>
               </li>
-            );
-          })}
+            ))}
         </ul>
       </main>
-      <footer>Independent demos will be added and verified in separate pull requests.</footer>
+      <footer>
+        <p>Built as independent, inspectable web demos.</p>
+        <a href="https://github.com/pengcc/portfolio">Project on GitHub</a>
+      </footer>
     </div>
   );
 }
