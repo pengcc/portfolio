@@ -1,11 +1,11 @@
 ---
 name: implementation-review
-description: Independently review and re-review exact current Portfolio PR base/head, code and actual evidence; return actionable or clean verdict read-only.
+description: Independently review and re-review exact current Portfolio PR base/head, code and actual evidence; return actionable or clean verdict without implementation changes.
 ---
 
 # Implementation Review — Portfolio
 
-This callable adapter is the sole Review Skill. The [Review contract](../../../.codex/project-collaboration/contracts/implementation-review.md) owns verdict semantics; [Collaboration](../../../docs/collaboration.md) owns stage authority. Do not edit files, post reviews/comments, approve, merge, deploy or alter external state on review-only authority.
+This callable adapter is the sole Review Skill. The [Review contract](../../../.codex/project-collaboration/contracts/implementation-review.md) owns verdict semantics; [Collaboration](../../../docs/collaboration.md) owns stage authority. Do not edit implementation files, approve, merge, deploy or alter external state on review-only authority. Follow the contract’s bounded publication rule only with explicit authority to deliver the result on the target PR.
 
 ## Resolve target
 
@@ -34,4 +34,13 @@ Do not treat disappearance of the original symptom as completion by itself.
 
 ## Result and re-review
 
-Provide one verdict for the exact base/head. Each actionable finding names severity, exact location/evidence, impact and complete required end state; separate provisional conclusions and optional improvements. When re-reviewing, fetch the **new** exact target, verify prior required end states and check regressions or scope drift. A clean review needs no invented fix handoff. Fixing remains separately authorized.
+Follow the contract’s actionable/clean output paths. For actionable findings, ensure the complete
+result is accessible to the next implementer and independent reviewer; when needed, publish it on
+the target PR with explicit publication authority, verify readback, and return the stable result
+link plus directly usable next-agent instructions in chat. Missing authority or failed publication
+means durable delivery remains incomplete, not that the user must retransmit findings manually.
+
+For re-review, retrieve the prior PR result, fetch the **new** exact base/head, verify every prior
+required end state and check regressions or scope drift. Preserve revision-specific evidence. A
+clean review stays in chat without an invented fix handoff or mandatory publication. Remediation,
+merge and deployment remain separately authorized.

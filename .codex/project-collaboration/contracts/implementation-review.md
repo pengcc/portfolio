@@ -4,8 +4,8 @@
 
 Use this contract for complete implementation review and remediation re-review. Review evaluates
 the actual current delivery against the authority that governed it and reports actionable end
-states. It is non-mutating and does not authorize fixes, publication, approval, merge, release, or
-deployment.
+states. Review does not mutate the implementation or authorize fixes, approval, merge, release,
+or deployment. Publishing the review result is a distinct, bounded effect governed below.
 
 Apply the depth proportionately. Do not add an independent review merely to manufacture lifecycle
 state when an adequate review already covers the required boundary.
@@ -67,7 +67,35 @@ The verdict covers the exact reviewed target. It is not approval or authority fo
 
 ## Actionable and clean output paths
 
-Return one coordinated verdict for the exact revision. Include severity, exact location/evidence, impact, required end state and the smallest handoff needed for separately authorized same-PR remediation. Return findings in chat by default; do not post GitHub comments, issue approvals, change PR state, merge or deploy on review authority. A clean result needs no invented remediation handoff; missing evidence is provisional, not a clean result.
+Return one coordinated verdict for the exact repository/PR and full base/head SHAs. Include
+severity, exact location/evidence, impact, required end state, actual validation and material
+limits. Keep actionable findings separate from provisional conclusions and optional improvements.
+
+Actionable findings must be accessible to a subsequent Codex implementer and independent reviewer
+without the user copying them between chats. When chat is not accessible to those recipients,
+publish the complete result as a comment on the reviewed PR under explicit user authority for that
+publication. An instruction to deliver findings on that PR supplies this bounded authority; a
+review-only request does not. If authority is missing, prepare the complete public-safe result and
+request permission to post it. If posting or readback fails, retain the result in chat and report
+durable delivery as incomplete; do not substitute a local-only file or claim a successful handoff.
+
+The PR result must stand alone: include the governing task/authority references, exact reviewed
+base/head, every actionable finding and required end state, and validation limits. Read back the
+posted result to verify content and target; return its stable URL/identifier in chat. Reuse an
+adequate result for the same revision rather than duplicating it. Preserve prior revision evidence
+when publishing a later result, and identify which prior result it supersedes.
+
+Include directly usable next-agent instructions in the PR result and return them in chat with
+the result link:
+the implementer must verify current source and separate remediation authority before making bounded
+same-PR corrections; the independent reviewer must re-review the new exact base/head against all
+prior findings and check regressions. A link alone is not an instruction. Publication authority
+covers only the review result, never remediation, approval, PR state changes, merge or deployment.
+
+A clean result stays in chat and needs no result identifier, publication or remediation handoff
+unless separately requested. Optional improvements alone do not trigger the actionable path.
+Missing evidence is provisional, not a clean result.
+
 ## Remediation re-review
 
 Re-review the new exact target against each prior actionable finding and the relevant authority
