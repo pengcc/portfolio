@@ -4,6 +4,8 @@ import {
   duplicateCount,
   initialState,
   isCatalogOrder,
+  listsMatch,
+  nextPageToLoad,
   type PageNumber,
   type PageResponse,
   pageProducts,
@@ -79,5 +81,54 @@ describe('pagination and duplicate-data comparison', () => {
     expect(stableProducts(refreshed)).toHaveLength(5);
     expect(refreshed.pages[2]).toBeUndefined();
     expect(isCatalogOrder(stableProducts(refreshed))).toBe(true);
+  });
+});
+
+describe('pagination controls and visible comparison', () => {
+  it('finishes manual pagination after either full-page preset, including buffered pages', () => {
+    for (const order of [
+      [2, 3],
+      [3, 2],
+    ] as const) {
+      let state = initialState();
+      expect(nextPageToLoad(state)).toBe(2);
+      state = receivePage(state, result(order[0]));
+      expect(nextPageToLoad(state)).toBe(order[0] === 2 ? 3 : 2);
+      state = receivePage(state, result(order[1]));
+      expect(nextPageToLoad(state)).toBe(4);
+    }
+  });
+
+  it('restores pagination after refresh, ignores old pages, and resets to page 2', () => {
+    const full = receivePage(receivePage(initialState(), result(2)), result(3));
+    const refreshing = beginRefresh(full);
+    expect(nextPageToLoad(refreshing)).toBe(1);
+    const latest = receivePage(refreshing, result(1, 1));
+    const late = receivePage(latest, result(2));
+    expect(nextPageToLoad(late)).toBe(2);
+    const second = receivePage(late, result(2, 1));
+    expect(nextPageToLoad(second)).toBe(3);
+    expect(nextPageToLoad(receivePage(second, result(3, 1)))).toBe(4);
+    expect(nextPageToLoad(initialState())).toBe(2);
+  });
+
+  it('distinguishes matching lists from buffered and completed divergent lists', () => {
+    const start = initialState();
+    expect(listsMatch(start.naive, stableProducts(start))).toBe(true);
+    const early = receivePage(start, result(3));
+    expect(early.naive).toHaveLength(9);
+    expect(stableProducts(early)).toHaveLength(5);
+    expect(listsMatch(early.naive, stableProducts(early))).toBe(false);
+    const complete = receivePage(early, result(2));
+    expect(listsMatch(complete.naive, stableProducts(complete))).toBe(false);
+    const fixed = stableProducts(complete);
+    expect(listsMatch(fixed, [...fixed])).toBe(true);
+    expect(listsMatch(fixed, [...fixed].reverse())).toBe(false);
+    expect(
+      listsMatch(
+        fixed,
+        fixed.map((item, index) => (index === 0 ? { ...item, price: 1 } : item)),
+      ),
+    ).toBe(false);
   });
 });

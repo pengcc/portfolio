@@ -114,3 +114,28 @@ export function isCatalogOrder(items: readonly Product[]): boolean {
       index === 0 || (positions.get(items[index - 1].id) ?? -1) < (positions.get(product.id) ?? -1),
   );
 }
+
+// Pagination controls consume the same accepted pages as the fixed list.
+export function nextPageToLoad(state: ListState): PageNumber | 4 {
+  if (state.replacing) return 1;
+  for (const page of [1, 2, 3] as const) {
+    if (!state.pages[page]) return page;
+  }
+  return 4;
+}
+
+export function listsMatch(left: readonly Product[], right: readonly Product[]): boolean {
+  return (
+    left.length === right.length &&
+    left.every((product, index) => {
+      const other = right[index];
+      return (
+        product.id === other.id &&
+        product.name === other.name &&
+        product.category === other.category &&
+        product.price === other.price &&
+        product.mark === other.mark
+      );
+    })
+  );
+}

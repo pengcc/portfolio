@@ -6,6 +6,8 @@ import {
   initialState,
   isCatalogOrder,
   type ListState,
+  listsMatch,
+  nextPageToLoad,
   type PageNumber,
   type Product,
   receivePage,
@@ -142,7 +144,7 @@ function App() {
   const [state, setState] = useState<ListState>(initialState);
   const [busy, setBusy] = useState(false);
   const [selected, setSelected] = useState<Scenario>('overlap');
-  const [nextPage, setNextPage] = useState<PageNumber | 4>(2);
+  const nextPage = nextPageToLoad(state);
   const [events, setEvents] = useState<TimelineEvent[]>([]);
   const [message, setMessage] = useState('Both lists start with the same first five products.');
   const runId = useRef(0);
@@ -164,7 +166,6 @@ function App() {
     runId.current += 1;
     setBusy(false);
     setState(initialState());
-    setNextPage(2);
     setEvents([]);
     setSelected('overlap');
     setMessage('Reset to page 1. Try a scenario to see where the lists diverge.');
@@ -176,7 +177,6 @@ function App() {
     generation: number,
     delay: number,
     label: string,
-    onComplete?: () => void,
   ) {
     const response = await requestPage(page, generation, delay);
     if (run !== runId.current) return;
@@ -190,7 +190,6 @@ function App() {
         (stale ? ' · FIXED IGNORES' : ''),
       stale,
     );
-    onComplete?.();
   }
 
   // The generation for the running scenario is tracked independently of React batching.
@@ -203,7 +202,6 @@ function App() {
     setBusy(true);
     setEvents([]);
     setState(initialState());
-    setNextPage(2);
     selectedGeneration.current = 0;
     log('Reset both lists to the same starting data.');
 
@@ -252,9 +250,7 @@ function App() {
     setBusy(true);
     setMessage('Fetching page ' + page + ' with one repeated ID from the previous page.');
     log('Requested page ' + page + '.');
-    await deliver(run, page, generation, 450, 'Page ' + page, () => {
-      setNextPage(page === 2 ? 3 : 4);
-    });
+    await deliver(run, page, generation, 450, 'Page ' + page);
     if (run === runId.current) setBusy(false);
   }
 
@@ -376,7 +372,7 @@ function App() {
           </span>
           <p>
             <strong>
-              {badDuplicates > 0 || !isCatalogOrder(state.naive)
+              {!listsMatch(state.naive, fixed)
                 ? 'The difference is visible.'
                 : 'Both lists match so far.'}
             </strong>{' '}
