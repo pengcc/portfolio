@@ -57,4 +57,13 @@ export const demoCatalog: readonly Demo[] = [
     href: '/demos/mobile-checkout/',
     sourceHref: 'https://github.com/pengcc/portfolio/tree/main/src/demos/mobile-checkout',
   },
+  {
+    slug: 'pagination-fixer',
+    title: 'Pagination & Duplicate Data Fixer',
+    description:
+      'Reproduce overlapping pages, fast refreshes and out-of-order responses; compare broken and reliable React list state.',
+    status: 'live',
+    href: '/demos/pagination-fixer/',
+    sourceHref: 'https://github.com/pengcc/portfolio/tree/main/src/demos/pagination-fixer',
+  },
 ];

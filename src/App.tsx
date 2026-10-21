@@ -7,8 +7,8 @@ export function App() {
         <p className="eyebrow">INDEPENDENT WEB DEMOS</p>
         <h1>Small tools for real-world tasks.</h1>
         <p className="summary">
-          Explore practical browser-based tools for converting data and checking CSV files. Try the
-          demos or inspect how they're built.
+          Explore practical browser-based tools for working with data and testing common UI
+          failures. Try the demos or inspect how they're built.
         </p>
       </header>
       <main id="demos" aria-labelledby="demos-heading">
