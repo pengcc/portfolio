@@ -347,30 +347,53 @@ function App() {
         <div className="run-status">
           <div className="status-copy">
             <span className={'run-indicator' + (busy ? ' running' : '')} aria-hidden="true" />
-            <p role="status">{busy ? 'SIMULATING' : 'READY'} <span>· {message}</span></p>
+            <p role="status">
+              {busy ? 'SIMULATING' : 'READY'} <span>  {message}</span>
+            </p>
           </div>
-          <button type="button" className="load-button" disabled={busy || nextPage === 4} onClick={() => void loadNext()}>
+          <button
+            type="button"
+            className="load-button"
+            disabled={busy || nextPage === 4}
+            onClick={() => void loadNext()}
+          >
             {nextPage === 4 ? 'All pages loaded ✓' : 'Manually load page ' + nextPage + ' →'}
           </button>
         </div>
 
         <div className="comparison">
           <ProductPanel mode="naive" items={state.naive} />
-          <ProductPanel mode="fixed" items={fixed} totalPages={Object.keys(state.pages).length} ignored={state.staleIgnored} />
+          <ProductPanel
+            mode="fixed"
+            items={fixed}
+            totalPages={Object.keys(state.pages).length}
+            ignored={state.staleIgnored}
+          />
         </div>
         <div className="verdict" aria-live="polite">
-          <span className="verdict-icon" aria-hidden="true">◎</span>
+          <span className="verdict-icon" aria-hidden="true">
+            ◎
+          </span>
           <p>
-            <strong>{badDuplicates > 0 || !isCatalogOrder(state.naive) ? 'The difference is visible.' : 'Both lists match so far.'}</strong>{' '}
+            <strong>
+              {badDuplicates > 0 || !isCatalogOrder(state.naive)
+                ? 'The difference is visible.'
+                : 'Both lists match so far.'}
+            </strong>{' '}
             Naive: {badDuplicates} duplicate IDs. Fixed: {duplicateCount(fixed)} duplicate IDs.
             {pendingGap ? ' Page 3 is buffered until page 2 arrives.' : ''}
           </p>
         </div>
 
         <section className="timeline" aria-labelledby="timeline-title">
-          <div className="timeline-title"><h2 id="timeline-title">Request timeline</h2><span>NEWEST FIRST / LOCAL SIMULATION</span></div>
+          <div className="timeline-title">
+            <h2 id="timeline-title">Request timeline</h2>
+            <span>NEWEST FIRST / LOCAL SIMULATION</span>
+          </div>
           {events.length === 0 ? (
-            <p className="timeline-empty">No new requests yet. Choose an experiment or load another page.</p>
+            <p className="timeline-empty">
+              No new requests yet. Choose an experiment or load another page.
+            </p>
           ) : (
             <ol className="event-list">
               {events.map((entry) => (
@@ -386,10 +409,18 @@ function App() {
       <footer className="footer">
         <div>
           <strong>Why the fix works</strong>
-          <p>Deduplicate by stable product ID, keep page order, and reject responses from older refresh generations. Keep existing data visible while refreshing.</p>
+          <p>
+            Deduplicate by stable product ID, keep page order, and reject responses from older
+            refresh generations. Keep existing data visible while refreshing.
+          </p>
         </div>
-        <p>All products and timing are synthetic. No external API, customer data or real transactions.</p>
-        <a href="https://www.upwork.com/jobs/~022112549217973400375">Inspired by a reported freelance problem ↗</a>
+        <p>
+          All products and timing are synthetic. No external API, customer data or real
+          transactions.
+        </p>
+        <a href="https://www.upwork.com/jobs/~022112549217973400375">
+          Inspired by a reported freelance problem ↗
+        </a>
       </footer>
     </main>
   );
