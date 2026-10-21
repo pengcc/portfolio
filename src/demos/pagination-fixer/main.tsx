@@ -348,7 +348,7 @@ function App() {
           <div className="status-copy">
             <span className={'run-indicator' + (busy ? ' running' : '')} aria-hidden="true" />
             <p role="status">
-              {busy ? 'SIMULATING' : 'READY'} <span>  {message}</span>
+              {busy ? 'SIMULATING' : 'READY'} <span> {message}</span>
             </p>
           </div>
           <button
