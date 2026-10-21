@@ -4,11 +4,12 @@ Public, static-first home for small, practical web-development demos.
 
 ## Status
 
-Three live browser-based demos are available:
+Four live browser-based demos are available:
 
 - [JSON → CSV Converter](https://portfolio-rjm.pages.dev/demos/json-csv/) — flat JSON conversion with preview, copy and download.
 - [Shopify CSV Validator](https://portfolio-rjm.pages.dev/demos/shopify-csv/) — focused product CSV checks before import, not complete Shopify compatibility validation.
 - [Mobile Checkout](https://portfolio-rjm.pages.dev/demos/mobile-checkout/) — mock-only checkout interactions with quantities, delivery/pickup, promo codes and form validation; no real orders or payments.
+- [Pagination & Duplicate Data Fixer](https://portfolio-rjm.pages.dev/demos/pagination-fixer/) — synthetic paginated products with overlapping records, rapid refreshes, stale and out-of-order responses; compare naive append behavior with a guarded, ID-deduplicated list. This URL becomes available only after authorized publication.
 
 ## Tech stack
 
