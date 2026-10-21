@@ -5,12 +5,12 @@ import {
   duplicateCount,
   initialState,
   isCatalogOrder,
-  requestPage,
-  receivePage,
-  stableProducts,
   type ListState,
   type PageNumber,
   type Product,
+  receivePage,
+  requestPage,
+  stableProducts,
 } from './model';
 import './styles.css';
 
@@ -58,8 +58,12 @@ function ProductPanel({
   const duplicates = duplicateCount(items);
   const ordered = isCatalogOrder(items);
   const seen = new Set<string>();
+  const occurrences = new Map<string, number>();
   return (
-    <section className={'result-panel ' + mode} aria-label={mode === 'naive' ? 'Buggy result' : 'Fixed result'}>
+    <section
+      className={'result-panel ' + mode}
+      aria-label={mode === 'naive' ? 'Buggy result' : 'Fixed result'}
+    >
       <div className="panel-header">
         <div className="panel-type">
           <span className="panel-index">{mode === 'naive' ? '01 / BEFORE' : '02 / AFTER'}</span>
@@ -93,16 +97,27 @@ function ProductPanel({
         <span>PRICE</span>
       </div>
       <div className="product-list">
-        {items.map((product, index) => {
+        {items.map((product) => {
           const duplicate = seen.has(product.id);
           seen.add(product.id);
+          const occurrence = (occurrences.get(product.id) ?? 0) + 1;
+          occurrences.set(product.id, occurrence);
           return (
-            <div className={'product-row' + (duplicate ? ' is-duplicate' : '')} key={product.id + '-' + index}>
-              <div className="product-icon" aria-hidden="true">{product.mark}</div>
+            <div
+              className={'product-row' + (duplicate ? ' is-duplicate' : '')}
+              key={product.id + '-' + occurrence}
+            >
+              <div className="product-icon" aria-hidden="true">
+                {product.mark}
+              </div>
               <div className="product-meta">
                 <strong>{product.name}</strong>
                 <span>
-                  {product.id} <span className="middle-dot" aria-hidden="true">·</span> {product.category}
+                  {product.id}{' '}
+                  <span className="middle-dot" aria-hidden="true">
+                    ·
+                  </span>{' '}
+                  {product.category}
                 </span>
                 {duplicate && <em>Duplicate ID</em>}
               </div>
@@ -113,7 +128,10 @@ function ProductPanel({
       </div>
       <div className="panel-footer">
         {mode === 'fixed'
-          ? 'Pages received: ' + (totalPages ?? 0) + ' / 3 · Stale replies ignored: ' + (ignored ?? 0)
+          ? 'Pages received: ' +
+            (totalPages ?? 0) +
+            ' / 3 · Stale replies ignored: ' +
+            (ignored ?? 0)
           : 'No deduplication · No request version check'}
       </div>
     </section>
@@ -130,9 +148,12 @@ function App() {
   const runId = useRef(0);
   const eventId = useRef(0);
 
-  useEffect(() => () => {
-    runId.current += 1;
-  }, []);
+  useEffect(
+    () => () => {
+      runId.current += 1;
+    },
+    [],
+  );
 
   function log(text: string, stale = false) {
     const entry = { id: ++eventId.current, text, stale };
@@ -161,7 +182,14 @@ function App() {
     if (run !== runId.current) return;
     setState((current) => receivePage(current, response));
     const stale = generation !== (selectedGeneration.current ?? 0);
-    log(label + ' · ' + response.products.length + ' records received' + (stale ? ' · FIXED IGNORES' : ''), stale);
+    log(
+      label +
+        ' · ' +
+        response.products.length +
+        ' records received' +
+        (stale ? ' · FIXED IGNORES' : ''),
+      stale,
+    );
     onComplete?.();
   }
 
@@ -196,10 +224,7 @@ function App() {
     } else if (scenario === 'out-of-order') {
       setMessage('Page 3 returns before page 2. The fixed list holds page 3 until page 2 arrives.');
       log('Requested page 2 (slow) and page 3 (fast).');
-      await Promise.all([
-        deliver(run, 2, 0, 820, 'Page 2'),
-        deliver(run, 3, 0, 220, 'Page 3'),
-      ]);
+      await Promise.all([deliver(run, 2, 0, 820, 'Page 2'), deliver(run, 3, 0, 220, 'Page 3')]);
     } else {
       const refreshing = beginRefresh(initialState());
       selectedGeneration.current = refreshing.generation;
@@ -240,30 +265,51 @@ function App() {
   return (
     <main className="page">
       <header className="topbar">
-        <a className="home-link" href="/">↖ Portfolio</a>
-        <span className="top-label"><span className="live-dot" /> INTERACTIVE CASE STUDY</span>
-        <a className="source-link" href="https://github.com/pengcc/portfolio/tree/main/src/demos/pagination-fixer">
+        <a className="home-link" href="/">
+          ↖ Portfolio
+        </a>
+        <span className="top-label">
+          <span className="live-dot" /> INTERACTIVE CASE STUDY
+        </span>
+        <a
+          className="source-link"
+          href="https://github.com/pengcc/portfolio/tree/main/src/demos/pagination-fixer"
+        >
           View source ↗
         </a>
       </header>
 
       <section className="hero">
         <div className="hero-copy">
-          <p className="eyebrow">ENGINEERING LAB <span>—</span> 004 / DATA INTEGRITY</p>
-          <h1>Same API.<br /><i>Different outcome.</i></h1>
-          <p className="lead">
-            Duplicate products after pull-to-refresh? Pages that arrive out of order?
-            Explore how a naive React list breaks—and how a predictable merge keeps it intact.
+          <p className="eyebrow">
+            ENGINEERING LAB <span>—</span> 004 / DATA INTEGRITY
           </p>
-          <div className="hero-pills"><span>React + TypeScript</span><span>Simulated async API</span><span>Zero backend</span></div>
+          <h1>
+            Same API.
+            <br />
+            <i>Different outcome.</i>
+          </h1>
+          <p className="lead">
+            Duplicate products after pull-to-refresh? Pages that arrive out of order? Explore how a
+            naive React list breaks—and how a predictable merge keeps it intact.
+          </p>
+          <div className="hero-pills">
+            <span>React + TypeScript</span>
+            <span>Simulated async API</span>
+            <span>Zero backend</span>
+          </div>
         </div>
-        <div className="hero-aside" aria-label="Case study overview">
+        <div className="hero-aside">
           <p className="aside-top">THE PROBLEM</p>
-          <strong>01 <span>/</span> 02</strong>
+          <strong>
+            01 <span>/</span> 02
+          </strong>
           <div className="aside-divider" />
           <p>One incoming response.</p>
           <p>Two very different ways to update state.</p>
-          <span className="aside-arrow" aria-hidden="true">↗</span>
+          <span className="aside-arrow" aria-hidden="true">
+            ↗
+          </span>
         </div>
       </section>
 
@@ -274,10 +320,12 @@ function App() {
             <h2 id="lab-title">Break it. Then watch the fix.</h2>
             <p>Select a failure case. Every preset starts from the same 5 products.</p>
           </div>
-          <button type="button" className="reset-button" onClick={reset}>↺ Reset lists</button>
+          <button type="button" className="reset-button" onClick={reset}>
+            ↺ Reset lists
+          </button>
         </div>
 
-        <div className="scenario-grid" role="group" aria-label="Failure scenarios">
+        <div className="scenario-grid">
           {(['overlap', 'rapid', 'out-of-order', 'stale'] as const).map((scenario, index) => (
             <button
               className={'scenario-card' + (selected === scenario ? ' selected' : '')}
@@ -288,7 +336,9 @@ function App() {
               onClick={() => void play(scenario)}
             >
               <span className="scenario-number">{String(index + 1).padStart(2, '0')}</span>
-              <strong>{scenarioDetails[scenario].title} <span aria-hidden="true">↗</span></strong>
+              <strong>
+                {scenarioDetails[scenario].title} <span aria-hidden="true">↗</span>
+              </strong>
               <small>{scenarioDetails[scenario].description}</small>
             </button>
           ))}

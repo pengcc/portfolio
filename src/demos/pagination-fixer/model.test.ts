@@ -4,12 +4,12 @@ import {
   duplicateCount,
   initialState,
   isCatalogOrder,
+  type PageNumber,
+  type PageResponse,
   pageProducts,
   products,
   receivePage,
   stableProducts,
-  type PageNumber,
-  type PageResponse,
 } from './model';
 
 function result(page: PageNumber, generation = 0): PageResponse {

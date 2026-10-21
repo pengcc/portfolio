@@ -111,7 +111,6 @@ export function isCatalogOrder(items: readonly Product[]): boolean {
   const positions = new Map(products.map((product, index) => [product.id, index] as const));
   return items.every(
     (product, index) =>
-      index === 0 ||
-      (positions.get(items[index - 1].id) ?? -1) < (positions.get(product.id) ?? -1),
+      index === 0 || (positions.get(items[index - 1].id) ?? -1) < (positions.get(product.id) ?? -1),
   );
 }
